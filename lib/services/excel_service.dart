@@ -175,6 +175,10 @@ class ExcelService {
   }) async {
     try {
       final excel = Excel.createExcel();
+
+      // Delete the default 'Sheet1' to avoid empty sheet in export
+      excel.delete('Sheet1');
+
       final sheetName = 'Attendance';
       final sheet = excel[sheetName];
 

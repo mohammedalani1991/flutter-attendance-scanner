@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:vibration/vibration.dart';
 import '../services/scanner_service.dart';
+import '../services/sound_service.dart';
 import '../providers/session_provider.dart';
 
 /// Screen for scanning QR codes and barcodes
@@ -15,6 +16,7 @@ class ScannerScreen extends ConsumerStatefulWidget {
 
 class _ScannerScreenState extends ConsumerState<ScannerScreen> {
   final ScannerService _scannerService = ScannerService();
+  final SoundService _soundService = SoundService();
   final MobileScannerController _controller = MobileScannerController(
     detectionSpeed: DetectionSpeed.normal,
     facing: CameraFacing.back,
@@ -27,6 +29,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
   @override
   void dispose() {
     _controller.dispose();
+    _soundService.dispose();
     super.dispose();
   }
 
@@ -203,12 +206,18 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
     if (!mounted) return;
 
     if (result.success && result.student != null) {
-      // Success - show green feedback
+      // Success - show green feedback and play success sound
+      _soundService.playSuccess();
       await _showSuccessFeedback(result.student!.studentName, code);
       // Refresh attendance list
       ref.read(attendanceRecordsProvider.notifier).refresh();
     } else {
-      // Error - show red feedback
+      // Error - show red feedback and play appropriate error sound
+      if (result.errorType == ScanErrorType.alreadyScanned) {
+        _soundService.playDuplicate();
+      } else {
+        _soundService.playError();
+      }
       await _showErrorFeedback(result.errorMessage ?? 'Unknown error');
     }
 
