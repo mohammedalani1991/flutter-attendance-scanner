@@ -1,0 +1,63 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  build-apk:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.7'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests (optional)
+        run: flutter test
+        continue-on-error: true
+
+      - name: Build APK (Debug)
+        run: flutter build apk --debug
+
+      - name: Build APK (Release)
+        run: flutter build apk --release
+
+      - name: Build APK (Split per ABI - optimized size)
+        run: flutter build apk --split-per-abi --release
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: attendance-scanner-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: attendance-scanner-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload Split APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: attendance-scanner-split-apks
+          path: build/app/outputs/flutter-apk/app-*-release.apk
