@@ -41,12 +41,18 @@ jobs:
         continue-on-error: true
 
       - name: Build APK (Debug)
+        env:
+          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --debug
 
       - name: Build APK (Release)
+        env:
+          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --release
 
       - name: Build APK (Split per ABI - optimized size)
+        env:
+          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --split-per-abi --release
 
       - name: Upload Debug APK
