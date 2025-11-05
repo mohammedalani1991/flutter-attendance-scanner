@@ -26,7 +26,12 @@ jobs:
         run: flutter pub get
 
       - name: Run tests (optional)
-        run: flutter test
+        run: |
+          if [ -d "test" ]; then
+            flutter test
+          else
+            echo "No test directory found. Skipping tests."
+          fi
         continue-on-error: true
 
       - name: Build iOS (no codesign)
