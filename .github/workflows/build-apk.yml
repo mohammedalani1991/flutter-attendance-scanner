@@ -11,6 +11,8 @@ jobs:
   build-apk:
     name: Build APK
     runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m -Dorg.gradle.jvmargs="-Xmx4096m -XX:MaxMetaspaceSize=512m"
 
     steps:
       - name: Checkout repository
@@ -31,6 +33,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Configure Gradle for CI (increase memory, disable Jetifier)
+        run: |
+          cat >> android/gradle.properties << EOF
+          org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8
+          android.enableJetifier=false
+          EOF
+
       - name: Run tests (optional)
         run: |
           if [ -d "test" ]; then
@@ -41,18 +50,12 @@ jobs:
         continue-on-error: true
 
       - name: Build APK (Debug)
-        env:
-          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --debug
 
       - name: Build APK (Release)
-        env:
-          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --release
 
       - name: Build APK (Split per ABI - optimized size)
-        env:
-          GRADLE_OPTS: -Xmx4096m -XX:MaxMetaspaceSize=512m
         run: flutter build apk --split-per-abi --release
 
       - name: Upload Debug APK
