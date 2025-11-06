@@ -13,7 +13,7 @@ class SoundService {
     try {
       await _audioPlayer.stop(); // Stop any currently playing sound
       await _audioPlayer.setVolume(1.0); // Set volume to maximum (100%)
-      await _audioPlayer.play(AssetSource('sounds/success.mp3'));
+      await _audioPlayer.play(AssetSource('sounds/success.wav'));
     } catch (e) {
       // Silently fail if sound file doesn't exist
       // This allows the app to work without sound files
