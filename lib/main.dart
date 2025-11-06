@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/home_screen.dart';
 
 void main() {
@@ -22,6 +23,12 @@ class AttendanceScannerApp extends StatelessWidget {
       // Set app to Arabic language with RTL support
       locale: const Locale('ar'),
       supportedLocales: const [Locale('ar')],
+      // Add localization delegates for RTL support
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: ThemeData(
         // Color scheme
         colorScheme: ColorScheme.fromSeed(
