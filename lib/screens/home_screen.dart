@@ -19,7 +19,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Attendance Scanner'),
+        title: const Text('ماسح الحضور'),
         elevation: 2,
         actions: [
           IconButton(
@@ -29,7 +29,7 @@ class HomeScreen extends ConsumerWidget {
               ref.read(sessionsProvider.notifier).loadSessions();
               ref.read(studentsProvider.notifier).loadStudents();
             },
-            tooltip: 'Refresh',
+            tooltip: 'تحديث',
           ),
         ],
       ),
@@ -64,7 +64,7 @@ class HomeScreen extends ConsumerWidget {
                 );
               },
               icon: const Icon(Icons.qr_code_scanner),
-              label: const Text('Scan'),
+              label: const Text('مسح'),
             )
           : null,
     );
@@ -85,19 +85,19 @@ class HomeScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'No Active Session',
+                    'لا توجد جلسة نشطة',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text('Start a new session to begin taking attendance.'),
+                  const Text('ابدأ جلسة جديدة لبدء تسجيل الحضور.'),
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () => _showStartSessionDialog(context, ref),
                     icon: const Icon(Icons.play_arrow),
-                    label: const Text('Start Session'),
+                    label: const Text('بدء جلسة'),
                   ),
                 ],
               ),
@@ -117,7 +117,7 @@ class HomeScreen extends ConsumerWidget {
                     const Icon(Icons.circle, color: Colors.green, size: 12),
                     const SizedBox(width: 8),
                     const Text(
-                      'Active Session',
+                      'جلسة نشطة',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -136,7 +136,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Started: ${_formatDateTime(session.timestampStart)}',
+                  'بدأت: ${_formatDateTime(session.timestampStart)}',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey.shade700,
@@ -145,7 +145,7 @@ class HomeScreen extends ConsumerWidget {
                 if (session.notes != null && session.notes!.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
-                    'Notes: ${session.notes}',
+                    'ملاحظات: ${session.notes}',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade700,
@@ -166,13 +166,13 @@ class HomeScreen extends ConsumerWidget {
                         );
                       },
                       icon: const Icon(Icons.info_outline),
-                      label: const Text('View Details'),
+                      label: const Text('عرض التفاصيل'),
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton.icon(
                       onPressed: () => _showEndSessionDialog(context, ref),
                       icon: const Icon(Icons.stop),
-                      label: const Text('End Session'),
+                      label: const Text('إنهاء الجلسة'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red.shade700,
                         foregroundColor: Colors.white,
@@ -194,7 +194,7 @@ class HomeScreen extends ConsumerWidget {
       error: (error, stack) => Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('Error: $error'),
+          child: Text('خطأ: $error'),
         ),
       ),
     );
@@ -212,7 +212,7 @@ class HomeScreen extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Quick Actions',
+          'إجراءات سريعة',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -230,8 +230,8 @@ class HomeScreen extends ConsumerWidget {
             _buildActionCard(
               context: context,
               icon: Icons.upload_file,
-              title: 'Import Students',
-              subtitle: '$studentCount students',
+              title: 'استيراد الطلاب',
+              subtitle: '$studentCount طالب',
               onTap: () {
                 Navigator.push(
                   context,
@@ -244,8 +244,8 @@ class HomeScreen extends ConsumerWidget {
             _buildActionCard(
               context: context,
               icon: Icons.qr_code_scanner,
-              title: 'Scan QR/Barcode',
-              subtitle: activeSession.value != null ? 'Active' : 'No session',
+              title: 'مسح رمز QR/الباركود',
+              subtitle: activeSession.value != null ? 'نشط' : 'لا توجد جلسة',
               onTap: activeSession.value != null
                   ? () {
                       Navigator.push(
@@ -320,7 +320,7 @@ class HomeScreen extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Statistics',
+          'إحصائيات',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -344,7 +344,7 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text('Students'),
+                      const Text('الطلاب'),
                     ],
                   ),
                 ),
@@ -366,7 +366,7 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text('Sessions'),
+                      const Text('الجلسات'),
                     ],
                   ),
                 ),
@@ -387,7 +387,7 @@ class HomeScreen extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Recent Sessions',
+          'الجلسات الأخيرة',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -401,7 +401,7 @@ class HomeScreen extends ConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Center(
-                    child: Text('No sessions yet'),
+                    child: Text('لا توجد جلسات بعد'),
                   ),
                 ),
               );
@@ -430,22 +430,22 @@ class HomeScreen extends ConsumerWidget {
                     return await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text('Delete Session'),
+                        title: const Text('حذف الجلسة'),
                         content: Text(
-                          'Are you sure you want to delete "${session.courseName}"?\n\n'
-                          'This will permanently delete the session and all its attendance records.',
+                          'هل أنت متأكد من حذف "${session.courseName}"؟\n\n'
+                          'سيؤدي هذا إلى حذف الجلسة وجميع سجلات الحضور الخاصة بها نهائيًا.',
                         ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
+                            child: const Text('إلغاء'),
                           ),
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.red,
                             ),
-                            child: const Text('Delete'),
+                            child: const Text('حذف'),
                           ),
                         ],
                       ),
@@ -459,7 +459,7 @@ class HomeScreen extends ConsumerWidget {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Session deleted successfully'),
+                            content: Text('تم حذف الجلسة بنجاح'),
                             backgroundColor: Colors.green,
                           ),
                         );
@@ -470,7 +470,7 @@ class HomeScreen extends ConsumerWidget {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Failed to delete session'),
+                            content: Text('فشل حذف الجلسة'),
                             backgroundColor: Colors.red,
                           ),
                         );
@@ -508,7 +508,7 @@ class HomeScreen extends ConsumerWidget {
             );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Text('Error: $error'),
+          error: (error, stack) => Text('خطأ: $error'),
         ),
       ],
     );
@@ -521,15 +521,15 @@ class HomeScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Start New Session'),
+        title: const Text('بدء جلسة جديدة'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: courseNameController,
               decoration: const InputDecoration(
-                labelText: 'Course Name',
-                hintText: 'e.g., Computer Science 101',
+                labelText: 'اسم المقرر',
+                hintText: 'مثال: علوم الحاسب 101',
               ),
               autofocus: true,
             ),
@@ -537,8 +537,8 @@ class HomeScreen extends ConsumerWidget {
             TextField(
               controller: notesController,
               decoration: const InputDecoration(
-                labelText: 'Notes (optional)',
-                hintText: 'e.g., Mid-term exam',
+                labelText: 'ملاحظات (اختياري)',
+                hintText: 'مثال: اختبار نصفي',
               ),
               maxLines: 2,
             ),
@@ -547,13 +547,13 @@ class HomeScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('إلغاء'),
           ),
           ElevatedButton(
             onPressed: () async {
               if (courseNameController.text.trim().isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please enter a course name')),
+                  const SnackBar(content: Text('الرجاء إدخال اسم المقرر')),
                 );
                 return;
               }
@@ -572,19 +572,19 @@ class HomeScreen extends ConsumerWidget {
                 if (success) {
                   ref.read(sessionsProvider.notifier).loadSessions();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Session started successfully')),
+                    const SnackBar(content: Text('تم بدء الجلسة بنجاح')),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Failed to start session'),
+                      content: Text('فشل بدء الجلسة'),
                       backgroundColor: Colors.red,
                     ),
                   );
                 }
               }
             },
-            child: const Text('Start'),
+            child: const Text('بدء'),
           ),
         ],
       ),
@@ -595,12 +595,12 @@ class HomeScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('End Session'),
-        content: const Text('Are you sure you want to end this session?'),
+        title: const Text('إنهاء الجلسة'),
+        content: const Text('هل أنت متأكد من إنهاء هذه الجلسة؟'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('إلغاء'),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -611,12 +611,12 @@ class HomeScreen extends ConsumerWidget {
                 if (success) {
                   ref.read(sessionsProvider.notifier).loadSessions();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Session ended successfully')),
+                    const SnackBar(content: Text('تم إنهاء الجلسة بنجاح')),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Failed to end session'),
+                      content: Text('فشل إنهاء الجلسة'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -627,7 +627,7 @@ class HomeScreen extends ConsumerWidget {
               backgroundColor: Colors.red.shade700,
               foregroundColor: Colors.white,
             ),
-            child: const Text('End Session'),
+            child: const Text('إنهاء الجلسة'),
           ),
         ],
       ),

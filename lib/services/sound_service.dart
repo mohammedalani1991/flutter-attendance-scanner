@@ -12,6 +12,7 @@ class SoundService {
   Future<void> playSuccess() async {
     try {
       await _audioPlayer.stop(); // Stop any currently playing sound
+      await _audioPlayer.setVolume(1.0); // Set volume to maximum (100%)
       await _audioPlayer.play(AssetSource('sounds/success.mp3'));
     } catch (e) {
       // Silently fail if sound file doesn't exist
@@ -24,6 +25,7 @@ class SoundService {
   Future<void> playError() async {
     try {
       await _audioPlayer.stop();
+      await _audioPlayer.setVolume(1.0); // Set volume to maximum (100%)
       await _audioPlayer.play(AssetSource('sounds/error.mp3'));
     } catch (e) {
       print('Sound playback failed: $e');
@@ -34,6 +36,7 @@ class SoundService {
   Future<void> playDuplicate() async {
     try {
       await _audioPlayer.stop();
+      await _audioPlayer.setVolume(1.0); // Set volume to maximum (100%)
       await _audioPlayer.play(AssetSource('sounds/duplicate.mp3'));
     } catch (e) {
       print('Sound playback failed: $e');

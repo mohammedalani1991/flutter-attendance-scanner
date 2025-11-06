@@ -184,25 +184,25 @@ class ExcelService {
 
       // Add session metadata at the top
       sheet.appendRow([
-        TextCellValue('Course:'),
+        TextCellValue('المقرر:'),
         TextCellValue(session.courseName),
       ]);
       sheet.appendRow([
-        TextCellValue('Session Start:'),
+        TextCellValue('بداية الجلسة:'),
         TextCellValue(session.timestampStart.toString()),
       ]);
       sheet.appendRow([
-        TextCellValue('Session End:'),
-        TextCellValue(session.timestampEnd?.toString() ?? 'Ongoing'),
+        TextCellValue('نهاية الجلسة:'),
+        TextCellValue(session.timestampEnd?.toString() ?? 'مستمرة'),
       ]);
       if (session.notes != null && session.notes!.isNotEmpty) {
         sheet.appendRow([
-          TextCellValue('Notes:'),
+          TextCellValue('ملاحظات:'),
           TextCellValue(session.notes!),
         ]);
       }
       sheet.appendRow([
-        TextCellValue('Total Attendees:'),
+        TextCellValue('إجمالي الحضور:'),
         IntCellValue(attendanceRecords.length),
       ]);
 
@@ -211,11 +211,11 @@ class ExcelService {
 
       // Add header row for attendance data
       sheet.appendRow([
-        TextCellValue('Student ID'),
-        TextCellValue('Student Name'),
-        TextCellValue('Code Value'),
-        TextCellValue('Scan Time'),
-        TextCellValue('Scan Location'),
+        TextCellValue('رقم الطالب'),
+        TextCellValue('اسم الطالب'),
+        TextCellValue('قيمة الرمز'),
+        TextCellValue('وقت المسح'),
+        TextCellValue('موقع المسح'),
       ]);
 
       // Add attendance data rows

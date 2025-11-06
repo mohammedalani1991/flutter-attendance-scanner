@@ -51,26 +51,26 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Session Details'),
+        title: const Text('تفاصيل الجلسة'),
         actions: [
           if (!_isLoading && _session != null)
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: _loadSessionData,
-              tooltip: 'Refresh',
+              tooltip: 'تحديث',
             ),
           if (!_isLoading && _session != null)
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: _confirmDeleteSession,
-              tooltip: 'Delete Session',
+              tooltip: 'حذف الجلسة',
             ),
         ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _session == null
-              ? const Center(child: Text('Session not found'))
+              ? const Center(child: Text('الجلسة غير موجودة'))
               : _buildContent(),
       floatingActionButton: !_isLoading && _session != null && _attendanceRecords.isNotEmpty
           ? FloatingActionButton.extended(
@@ -85,7 +85,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
                       ),
                     )
                   : const Icon(Icons.file_download),
-              label: Text(_isExporting ? 'Exporting...' : 'Export'),
+              label: Text(_isExporting ? 'جاري التصدير...' : 'تصدير'),
             )
           : null,
     );
@@ -372,7 +372,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Attendance exported successfully'),
+          content: Text('تم تصدير الحضور بنجاح'),
           backgroundColor: Colors.green,
         ),
       );
@@ -391,7 +391,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to export: $e'),
+          content: Text('فشل التصدير: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -402,22 +402,22 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Session'),
+        title: const Text('حذف الجلسة'),
         content: Text(
-          'Are you sure you want to delete this session "${_session!.courseName}"?\n\n'
-          'This will permanently delete the session and all ${_attendanceRecords.length} attendance records.',
+          'هل أنت متأكد من حذف هذه الجلسة "${_session!.courseName}"؟\n\n'
+          'سيؤدي هذا إلى حذف الجلسة وجميع سجلات الحضور البالغ عددها ${_attendanceRecords.length} بشكل دائم.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text('إلغاء'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: const Text('Delete'),
+            child: const Text('حذف'),
           ),
         ],
       ),
@@ -437,7 +437,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Session deleted successfully'),
+            content: Text('تم حذف الجلسة بنجاح'),
             backgroundColor: Colors.green,
           ),
         );
@@ -447,7 +447,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to delete session'),
+            content: Text('فشل حذف الجلسة'),
             backgroundColor: Colors.red,
           ),
         );
@@ -457,7 +457,7 @@ class _SessionDetailScreenState extends ConsumerState<SessionDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error deleting session: $e'),
+          content: Text('خطأ في حذف الجلسة: $e'),
           backgroundColor: Colors.red,
         ),
       );

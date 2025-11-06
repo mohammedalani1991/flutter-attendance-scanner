@@ -17,8 +17,11 @@ class AttendanceScannerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Attendance Scanner',
+      title: 'ماسح الحضور',
       debugShowCheckedModeBanner: false,
+      // Set app to Arabic language with RTL support
+      locale: const Locale('ar'),
+      supportedLocales: const [Locale('ar')],
       theme: ThemeData(
         // Color scheme
         colorScheme: ColorScheme.fromSeed(

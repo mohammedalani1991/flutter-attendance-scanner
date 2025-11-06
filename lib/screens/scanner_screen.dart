@@ -39,12 +39,12 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scan QR/Barcode'),
+        title: const Text('مسح رمز QR/الباركود'),
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: _showInfo,
-            tooltip: 'Info',
+            tooltip: 'معلومات',
           ),
         ],
       ),
@@ -55,7 +55,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
               child: Padding(
                 padding: EdgeInsets.all(24.0),
                 child: Text(
-                  'No active session. Please start a session first.',
+                  'لا توجد جلسة نشطة. الرجاء بدء جلسة أولاً.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16),
                 ),
@@ -82,7 +82,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Active Session',
+                      'جلسة نشطة',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 14,
@@ -117,7 +117,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Text(
-                          'Position QR code or barcode within the frame',
+                          'ضع رمز QR أو الباركود داخل الإطار',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -149,13 +149,13 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                     IconButton(
                       icon: const Icon(Icons.flash_on),
                       onPressed: () => _controller.toggleTorch(),
-                      tooltip: 'Toggle Flash',
+                      tooltip: 'تشغيل/إيقاف الفلاش',
                       iconSize: 32,
                     ),
                     IconButton(
                       icon: const Icon(Icons.cameraswitch),
                       onPressed: () => _controller.switchCamera(),
-                      tooltip: 'Switch Camera',
+                      tooltip: 'تبديل الكاميرا',
                       iconSize: 32,
                     ),
                   ],
@@ -166,7 +166,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
-          child: Text('Error: $error'),
+          child: Text('خطأ: $error'),
         ),
       ),
     );
@@ -271,7 +271,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Attendance Recorded',
+                  'تم تسجيل الحضور',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -348,7 +348,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Scan Failed',
+                  'فشل المسح',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -380,14 +380,14 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Scanner Info'),
+        title: const Text('معلومات الماسح'),
         content: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Supported Formats:',
+                'الأنواع المدعومة:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
@@ -397,34 +397,34 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
               Text('• EAN-13'),
               Text('• EAN-8'),
               Text('• UPC-A / UPC-E'),
-              Text('• And more...'),
+              Text('• وأنواع أخرى...'),
               SizedBox(height: 16),
               Text(
-                'Tips:',
+                'نصائح:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              Text('• Hold the camera steady'),
-              Text('• Ensure good lighting'),
-              Text('• Keep the code within the frame'),
-              Text('• Use flash in low light'),
+              Text('• أمسك الكاميرا بثبات'),
+              Text('• تأكد من الإضاءة الجيدة'),
+              Text('• أبق الرمز داخل الإطار'),
+              Text('• استخدم الفلاش في الإضاءة المنخفضة'),
               SizedBox(height: 16),
               Text(
-                'Features:',
+                'الميزات:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              Text('• Automatic detection'),
-              Text('• Duplicate prevention (3 sec)'),
-              Text('• Visual and haptic feedback'),
-              Text('• Multi-format scanning'),
+              Text('• اكتشاف تلقائي'),
+              Text('• منع التكرار (3 ثواني)'),
+              Text('• تغذية راجعة بصرية وحسية'),
+              Text('• مسح متعدد الأنواع'),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: const Text('إغلاق'),
           ),
         ],
       ),

@@ -23,12 +23,12 @@ class _ImportStudentsScreenState extends ConsumerState<ImportStudentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Import Students'),
+        title: const Text('استيراد الطلاب'),
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline),
             onPressed: _showInstructions,
-            tooltip: 'Instructions',
+            tooltip: 'إرشادات',
           ),
         ],
       ),
